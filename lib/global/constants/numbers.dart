@@ -4,7 +4,7 @@ class AppNumbers {
  *----------------------------------------------------------------------------*/
 
 /*---------------------- splash -----------------------*/
-  static const int splashScreenDurationInSeconds = 3;
+  static const int splashScreenDurationInSeconds = 2;
 /*---------------------- onboarding-----------------------*/
 
   static const double onboardingOuterCircleDiameter = 180.0;
