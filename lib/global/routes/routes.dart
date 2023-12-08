@@ -2,12 +2,9 @@ import 'package:e_commerce_app/features/authentication/controller/signin_cubit/s
 import 'package:e_commerce_app/features/authentication/controller/signup_cubit/signup_cubit.dart';
 import 'package:e_commerce_app/features/authentication/view/screens/signin_screen.dart';
 import 'package:e_commerce_app/features/authentication/view/screens/signup_screen.dart';
-import 'package:e_commerce_app/features/main/controller/main_cubit.dart';
-import 'package:e_commerce_app/features/main/view/screens/main_screen.dart';
 import 'package:e_commerce_app/features/start/controller/onboarding_cubit.dart';
 import 'package:e_commerce_app/features/start/view/screens/onboarding_screen.dart';
 import 'package:e_commerce_app/features/start/view/screens/splash_screen.dart';
-import 'package:e_commerce_app/global/functions/common_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

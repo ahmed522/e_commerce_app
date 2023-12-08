@@ -1,5 +1,5 @@
-import 'package:e_commerce_app/features/main/controller/main_cubit.dart';
-import 'package:e_commerce_app/features/main/view/screens/main_screen.dart';
+import 'package:e_commerce_app/features/home/controller/main_cubit.dart';
+import 'package:e_commerce_app/features/home/view/screens/main_screen.dart';
 import 'package:e_commerce_app/features/start/view/screens/onboarding_screen.dart';
 import 'package:e_commerce_app/features/authentication/view/screens/signin_screen.dart';
 import 'package:e_commerce_app/global/constants/images_assets.dart';
@@ -57,7 +57,8 @@ class _SplashScreenState extends State<SplashScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => BlocProvider<MainCubit>(
-                          create: (context) => MainCubit(value),
+                          create: (context) =>
+                              MainCubit(value)..fetchProducts(),
                           child: const MainScreen(),
                         ),
                       ),

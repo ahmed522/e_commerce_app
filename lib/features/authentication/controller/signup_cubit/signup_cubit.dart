@@ -5,6 +5,7 @@ import 'package:e_commerce_app/features/authentication/controller/signup_cubit/s
 import 'package:e_commerce_app/features/authentication/model/gender.dart';
 import 'package:e_commerce_app/features/authentication/model/user_model.dart';
 import 'package:e_commerce_app/features/authentication/view/widgets/image_source_page.dart';
+import 'package:e_commerce_app/global/constants/api_constants.dart';
 import 'package:e_commerce_app/global/constants/numbers.dart';
 import 'package:e_commerce_app/global/constants/strings.dart';
 import 'package:e_commerce_app/global/services/dio_helper.dart';
@@ -82,7 +83,7 @@ class SignupCubit extends Cubit<SignupStates> {
       emit(SignupLoadingState());
       Map<String, dynamic> data = userModel.user.toJson();
       data['password'] = userPassword;
-      DioHelper.postData(url: AppStrings.signupApiUrl, data: data).then(
+      DioHelper.postData(url: ApiConstants.signupApiUrl, data: data).then(
         (value) {
           emit(SignupDoneState());
           Navigator.pop(context);

@@ -23,4 +23,10 @@ class AppImagesAssets {
   /*---------------------- signin-----------------------*/
 
   static const String signinScreenImageAsset = '$_imageAssetsPath/welcome.svg';
+
+  /*----------------------------------------------------------------------------
+   *                                   Main                                    -
+   *----------------------------------------------------------------------------*/
+
+  static const String emptyImageAsset = '$_imageAssetsPath/empty.svg';
 }

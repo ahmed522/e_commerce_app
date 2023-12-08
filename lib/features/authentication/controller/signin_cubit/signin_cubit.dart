@@ -1,7 +1,8 @@
 import 'package:e_commerce_app/features/authentication/controller/signin_cubit/signin_states.dart';
 import 'package:e_commerce_app/features/authentication/model/user_model.dart';
-import 'package:e_commerce_app/features/main/controller/main_cubit.dart';
-import 'package:e_commerce_app/features/main/view/screens/main_screen.dart';
+import 'package:e_commerce_app/features/home/controller/main_cubit.dart';
+import 'package:e_commerce_app/features/home/view/screens/main_screen.dart';
+import 'package:e_commerce_app/global/constants/api_constants.dart';
 import 'package:e_commerce_app/global/constants/numbers.dart';
 import 'package:e_commerce_app/global/constants/strings.dart';
 import 'package:e_commerce_app/global/services/cache_helper.dart';
@@ -31,7 +32,7 @@ class SigninCubit extends Cubit<SigninStates> {
         'email': userEmail,
         'password': userPassword,
       };
-      DioHelper.postData(url: AppStrings.signinApiUrl, data: data).then(
+      DioHelper.postData(url: ApiConstants.signinApiUrl, data: data).then(
         (value) {
           Map<String, dynamic> userData = value.data;
 
@@ -67,7 +68,8 @@ class SigninCubit extends Cubit<SigninStates> {
               context,
               MaterialPageRoute(
                 builder: (context) => BlocProvider<MainCubit>(
-                  create: (context) => MainCubit(userModel!.user),
+                  create: (context) =>
+                      MainCubit(userModel!.user)..fetchProducts(),
                   child: const MainScreen(),
                 ),
               ),

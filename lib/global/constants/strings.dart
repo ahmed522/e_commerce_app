@@ -20,7 +20,6 @@ class AppStrings {
 
   /*---------------------- signin -----------------------*/
 
-  static const String signinApiUrl = 'https://elwekala.onrender.com/user/login';
   static const String signinScreenTitleText = 'Sign in';
   static const String registerIfDontHaveAccount =
       'If you don\'t have account just';
@@ -29,8 +28,6 @@ class AppStrings {
 
   /*---------------------- signup -----------------------*/
 
-  static const String signupApiUrl =
-      'https://elwekala.onrender.com/user/register';
   static const String signupScreenTitleText = 'Sign up';
   static const String userDataInfoDialogTitle = 'User data rules';
   static const String userDataInfoDialogContent =
@@ -41,4 +38,11 @@ class AppStrings {
   static const String emailValidationRegExp =
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
   static const String numberValidationRegExp = r"^[0-9]*$";
+
+  /*----------------------------------------------------------------------------
+   *                                   Main                                    -
+   *----------------------------------------------------------------------------*/
+
+  static const String noNewProductsText =
+      "There are no new products now, please try again later";
 }

@@ -24,7 +24,6 @@ class CommonFunctions {
     json['gender'] = await CacheHelper.getData(key: 'gender');
     json['profileImage'] = await CacheHelper.getData(key: 'profileImage');
     json['token'] = await CacheHelper.getData(key: 'token');
-    print(json);
     return UserData.fromJson(json);
   }
 }
