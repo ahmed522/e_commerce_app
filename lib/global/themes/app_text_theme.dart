@@ -6,14 +6,14 @@ class AppTextTheme {
   static TextStyle _getBodyText1Style(Brightness brightness) => TextStyle(
         color: brightness == Brightness.light
             ? AppColors.primaryColor
-            : AppColors.lightColor1,
+            : Colors.white,
         fontWeight: FontWeight.w700,
         fontSize: 15,
       );
   static TextStyle _getBodyText2Style(Brightness brightness) => TextStyle(
         color: brightness == Brightness.light
             ? AppColors.primaryColor
-            : AppColors.lightColor1,
+            : Colors.white,
         fontWeight: FontWeight.w700,
         fontSize: 25,
       );

@@ -29,4 +29,10 @@ class AppImagesAssets {
    *----------------------------------------------------------------------------*/
 
   static const String emptyImageAsset = '$_imageAssetsPath/empty.svg';
+
+  /*----------------------------------------------------------------------------
+   *                                   Cart                                    -
+   *----------------------------------------------------------------------------*/
+
+  static const String emptyCartImageAsset = '$_imageAssetsPath/empty_cart.svg';
 }

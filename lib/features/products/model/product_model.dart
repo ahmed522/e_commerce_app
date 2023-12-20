@@ -27,7 +27,7 @@ class ProductModel {
   String? image;
   String? company;
   dynamic countInStock;
-  List<String>? images;
+  List<String> images = [];
   dynamic iV;
 
   ProductModel({

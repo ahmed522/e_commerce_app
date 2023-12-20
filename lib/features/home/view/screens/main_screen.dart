@@ -1,12 +1,14 @@
+import 'package:e_commerce_app/features/cart/controller/cart_cubit.dart';
+import 'package:e_commerce_app/features/cart/view/screens/cart_screen.dart';
+import 'package:e_commerce_app/features/favourites/controller/favourites_cubit.dart';
+import 'package:e_commerce_app/features/favourites/view/screens/favourites_screen.dart';
 import 'package:e_commerce_app/features/home/controller/main_cubit.dart';
 import 'package:e_commerce_app/features/home/controller/main_status.dart';
-import 'package:e_commerce_app/features/home/view/widgets/product_card.dart';
-import 'package:e_commerce_app/global/colors/app_colors.dart';
-import 'package:e_commerce_app/global/constants/images_assets.dart';
-import 'package:e_commerce_app/global/constants/strings.dart';
+import 'package:e_commerce_app/features/products/controller/all_products_cubit/all_products_cubit.dart';
+import 'package:e_commerce_app/features/products/view/screens/all_products_screen.dart';
+import 'package:e_commerce_app/features/profile/controller/profile_cubit.dart';
+import 'package:e_commerce_app/features/profile/view/screens/profile_screen.dart';
 import 'package:e_commerce_app/global/functions/common_functions.dart';
-import 'package:e_commerce_app/global/widgets/app_circular_progress_indicator.dart';
-import 'package:e_commerce_app/global/widgets/error_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,77 +17,85 @@ class MainScreen extends StatelessWidget {
   static const String route = 'mainScreen';
   @override
   Widget build(BuildContext context) {
-    var cubit = MainCubit.get(context);
-    var size = MediaQuery.of(context).size;
+    final cubit = MainCubit.get(context);
     return Scaffold(
-      body: SafeArea(
-        child: RefreshIndicator(
-          onRefresh: () => cubit.fetchProducts(),
-          color: (CommonFunctions.isLightMode(context))
-              ? AppColors.primaryColor
-              : Colors.white,
-          child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            child: Column(
-              children: [
-                const Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      top: 25,
-                      left: 25,
-                    ),
-                    child: Text(
-                      'Products',
-                      style: TextStyle(fontSize: 30),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 30),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: BlocBuilder<MainCubit, MainStates>(
-                      builder: (context, state) {
-                    if (state is ProductsLoadingState) {
-                      return SizedBox(
-                        width: size.width,
-                        height: size.height - 150,
-                        child: const Center(
-                          child: AppCircularProgressIndicator(
-                            height: 100,
-                            width: 100,
-                          ),
-                        ),
-                      );
-                    } else if (state is ProductsErrorState) {
-                      return CommonFunctions.internetError;
-                    } else if (state is NoProductsState) {
-                      return const ErrorPage(
-                        imageAsset: AppImagesAssets.emptyImageAsset,
-                        message: AppStrings.noNewProductsText,
-                      );
-                    }
-                    return GridView.count(
-                      childAspectRatio: 1 / 1.32,
-                      mainAxisSpacing: 8.0,
-                      crossAxisSpacing: 5.0,
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      crossAxisCount: 2,
-                      children: List<ProductCard>.generate(
-                        cubit.laptops.product.length,
-                        (index) => ProductCard(
-                          product: cubit.laptops.product[index],
-                        ),
-                      ),
-                    );
-                  }),
-                )
-              ],
-            ),
+      body: PageView(
+        controller: cubit.pageController,
+        onPageChanged: (selectedPage) => cubit.getSelectedPage(selectedPage),
+        children: [
+          BlocProvider<AllProductsCubit>(
+            create: (context) => AllProductsCubit()..fetchAllProducts(),
+            child: const AllProductsScreen(),
           ),
-        ),
+          BlocProvider<CartCubit>(
+            create: (context) => CartCubit()..fetchCartProducts(),
+            child: const CartScreen(),
+          ),
+          BlocProvider<FavouritesCubit>(
+            create: (context) => FavouritesCubit()..fetchFavourites(),
+            child: const FavouritesScreen(),
+          ),
+          BlocProvider<ProfileCubit>(
+            create: (context) => ProfileCubit()..fetchUserData(),
+            child: const ProfileScreen(),
+          ),
+        ],
       ),
+      bottomNavigationBar:
+          BlocBuilder<MainCubit, MainStates>(builder: (context, state) {
+        return BottomNavigationBar(
+          currentIndex: cubit.selectedPage,
+          elevation: 5.0,
+          backgroundColor: CommonFunctions.isLightMode(context)
+              ? Colors.white
+              : Colors.black,
+          type: BottomNavigationBarType.fixed,
+          showUnselectedLabels: false,
+          onTap: (value) => cubit.onTapPage(value, context),
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home_outlined,
+                color: CommonFunctions.isLightMode(context)
+                    ? Colors.black54
+                    : Colors.white54,
+              ),
+              activeIcon: const Icon(Icons.home_rounded),
+              label: 'Products',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.shopping_cart_outlined,
+                color: CommonFunctions.isLightMode(context)
+                    ? Colors.black54
+                    : Colors.white54,
+              ),
+              activeIcon: const Icon(Icons.shopping_cart_rounded),
+              label: 'Cart',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.favorite_outline_rounded,
+                color: CommonFunctions.isLightMode(context)
+                    ? Colors.black54
+                    : Colors.white54,
+              ),
+              activeIcon: const Icon(Icons.favorite_rounded),
+              label: 'Favourites',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.person_outline_rounded,
+                color: CommonFunctions.isLightMode(context)
+                    ? Colors.black54
+                    : Colors.white54,
+              ),
+              activeIcon: const Icon(Icons.person_rounded),
+              label: 'Profile',
+            ),
+          ],
+        );
+      }),
     );
   }
 }

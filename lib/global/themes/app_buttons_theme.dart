@@ -19,14 +19,14 @@ class AppButtonsTheme {
         style: TextButton.styleFrom(
           foregroundColor: (brightness == Brightness.light)
               ? AppColors.primaryColor
-              : AppColors.lightColor1,
+              : Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
           textStyle: TextStyle(
             color: (brightness == Brightness.light)
                 ? AppColors.primaryColor
-                : AppColors.lightColor1,
+                : Colors.white,
             fontWeight: FontWeight.w500,
           ),
         ),

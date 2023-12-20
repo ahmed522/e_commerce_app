@@ -2,10 +2,10 @@ abstract class MainStates {}
 
 class MainInitState extends MainStates {}
 
-class ProductsLoadingState extends MainStates {}
+class AllProductsState extends MainStates {}
 
-class ProductsReadyState extends MainStates {}
+class CartState extends MainStates {}
 
-class NoProductsState extends MainStates {}
+class FavState extends MainStates {}
 
-class ProductsErrorState extends MainStates {}
+class ProfileState extends MainStates {}

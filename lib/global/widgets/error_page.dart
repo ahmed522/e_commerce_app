@@ -7,32 +7,30 @@ class ErrorPage extends StatelessWidget {
   final String message;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const SizedBox(
-              height: 50,
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const SizedBox(
+            height: 100,
+          ),
+          SvgPicture.asset(
+            imageAsset,
+            height: 200,
+            width: 200,
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              message,
+              style: Theme.of(context).textTheme.bodyText2,
+              textAlign: TextAlign.center,
             ),
-            SvgPicture.asset(
-              imageAsset,
-              height: 200,
-              width: 200,
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                message,
-                style: Theme.of(context).textTheme.bodyText2,
-                textAlign: TextAlign.center,
-              ),
-            )
-          ],
-        ),
+          )
+        ],
       ),
     );
   }

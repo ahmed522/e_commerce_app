@@ -2,7 +2,7 @@ import 'package:e_commerce_app/features/start/controller/onboarding_cubit.dart';
 import 'package:e_commerce_app/features/start/controller/onboarding_states.dart';
 import 'package:e_commerce_app/features/start/model/onboarding_model.dart';
 import 'package:e_commerce_app/features/start/view/widgets/onboarding_single_item.dart';
-import 'package:e_commerce_app/features/start/view/widgets/onboarding_single_page_indicator.dart';
+import 'package:e_commerce_app/global/widgets/choice_indicator.dart';
 import 'package:e_commerce_app/global/colors/app_colors.dart';
 import 'package:e_commerce_app/global/constants/images_assets.dart';
 import 'package:e_commerce_app/global/constants/numbers.dart';
@@ -91,15 +91,9 @@ class OnboardingWidget extends StatelessWidget {
           Positioned(
             left: 25,
             bottom: 15,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: List.generate(
-                onboardingItems.length,
-                (index) => OnboardingSinglePageIndicator(
-                  currentPage: cubit.currentPage,
-                  index: index,
-                ),
-              ),
+            child: ChoiceIndicator(
+              items: onboardingItems.length,
+              currentChoice: cubit.currentPage,
             ),
           )
           /*-----------------------------------------*/

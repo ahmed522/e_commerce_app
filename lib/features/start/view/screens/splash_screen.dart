@@ -1,4 +1,3 @@
-import 'package:e_commerce_app/features/home/controller/main_cubit.dart';
 import 'package:e_commerce_app/features/home/view/screens/main_screen.dart';
 import 'package:e_commerce_app/features/start/view/screens/onboarding_screen.dart';
 import 'package:e_commerce_app/features/authentication/view/screens/signin_screen.dart';
@@ -9,7 +8,6 @@ import 'package:e_commerce_app/global/fonts/app_fonts.dart';
 import 'package:e_commerce_app/global/functions/common_functions.dart';
 import 'package:e_commerce_app/global/services/cache_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SplashScreen extends StatefulWidget {
   static const String route = 'splashScreen';
@@ -24,63 +22,12 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(microseconds: 20)).then(
-      (_) {
-        setState(
-          () {
-            animateLogo = true;
-          },
-        );
-        Future.delayed(const Duration(milliseconds: 600)).then(
-          (_) {
-            setState(
-              () {
-                animateName = true;
-              },
-            );
-          },
-        );
-        Future.delayed(const Duration(
-                seconds: AppNumbers.splashScreenDurationInSeconds))
-            .then(
-          (_) {
-            bool? isFirstTime = CacheHelper.getData(key: 'firstTime');
-            if (isFirstTime == null || isFirstTime) {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, OnboardingScreen.route, (route) => false);
-            } else {
-              String? signedIn = CacheHelper.getData(key: 'token');
-              if (signedIn != null) {
-                CommonFunctions.loadUserData().then(
-                  (value) {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => BlocProvider<MainCubit>(
-                          create: (context) =>
-                              MainCubit(value)..fetchProducts(),
-                          child: const MainScreen(),
-                        ),
-                      ),
-                      (route) => false,
-                    );
-                  },
-                );
-              } else {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, SigninScreen.route, (route) => false);
-              }
-            }
-          },
-        );
-      },
-    );
+    handleSplashScreen();
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
     return Scaffold(
       body: Stack(
         children: [
@@ -113,4 +60,52 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
     );
   }
+
+  Future handleSplashScreen() async =>
+      Future.delayed(const Duration(microseconds: 20)).then(
+        (_) {
+          setState(
+            () {
+              animateLogo = true;
+            },
+          );
+          Future.delayed(const Duration(milliseconds: 600)).then(
+            (_) {
+              setState(
+                () {
+                  animateName = true;
+                },
+              );
+            },
+          );
+          Future.delayed(const Duration(
+                  seconds: AppNumbers.splashScreenDurationInSeconds))
+              .then(
+            (_) {
+              bool? isFirstTime = CacheHelper.getData(key: 'firstTime');
+              if (isFirstTime == null || isFirstTime) {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, OnboardingScreen.route, (route) => false);
+              } else {
+                String? signedIn = CacheHelper.getData(key: 'token');
+                if (signedIn != null) {
+                  CommonFunctions.loadUserData().then(
+                    (value) {
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        MainScreen.route,
+                        (route) => false,
+                        arguments: value,
+                      );
+                    },
+                  );
+                } else {
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, SigninScreen.route, (route) => false);
+                }
+              }
+            },
+          );
+        },
+      );
 }

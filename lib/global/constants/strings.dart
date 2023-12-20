@@ -45,4 +45,28 @@ class AppStrings {
 
   static const String noNewProductsText =
       "There are no new products now, please try again later";
+
+  /*----------------------------------------------------------------------------
+   *                                   Cart                                    -
+   *----------------------------------------------------------------------------*/
+
+  static const String cartIsEmptyText = "Your cart is empty";
+  static const String updateCartProductAlertDialogTitle = 'Update product';
+  static const String deleteCartProductAlertDialogContent =
+      'Are you sure you want to remove this product from your cart?';
+  static const String deleteCartProductAlertDialogTitle = 'Remove product';
+
+  /*----------------------------------------------------------------------------
+   *                                   Favourits                               -
+   *----------------------------------------------------------------------------*/
+
+  static const String noFavouritesText = "There are no favourites";
+
+  /*----------------------------------------------------------------------------
+   *                                   Profile                                 -
+   *----------------------------------------------------------------------------*/
+
+  static const String updateUserNameAlertDialogTitle = "Update name";
+  static const String updateUserPhoneAlertDialogTitle = "Update phone";
+  static const String updateUserEmailAlertDialogTitle = "Update email";
 }

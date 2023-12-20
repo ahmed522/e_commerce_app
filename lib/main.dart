@@ -41,6 +41,7 @@ class MainWidget extends StatelessWidget {
         return widget!;
       },
       themeMode: ThemeMode.system,
+      onGenerateRoute: (settings) => AppRoutes.onGenerateRoutes(settings),
       routes: AppRoutes.routes,
       initialRoute: SplashScreen.route,
     );
